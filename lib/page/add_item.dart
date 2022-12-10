@@ -13,6 +13,7 @@ class AddItemPage extends StatefulWidget {
 class _AddItemPageState extends State<AddItemPage> {
   final TextEditingController _title = TextEditingController();
   final TextEditingController _description = TextEditingController();
+  final TextEditingController _price = TextEditingController();
   bool toggleSwitch = false;
 
   @override
@@ -36,15 +37,8 @@ class _AddItemPageState extends State<AddItemPage> {
               TextFormField(controller: _title),
               CustomText(text: 'description'.toUpperCase()),
               TextFormField(controller: _description),
-              CustomText(text: 'important'.toUpperCase()),
-              Switch(
-                value: toggleSwitch,
-                onChanged: (newVal) {
-                  setState(() {
-                    toggleSwitch = !toggleSwitch;
-                  });
-                },
-              ),
+              CustomText(text: 'price'.toUpperCase()),
+              TextFormField(controller: _price),
               BlocBuilder<CrudBloc, CrudState>(
                 builder: (context, state) {
                   return ElevatedButton(
