@@ -13,7 +13,7 @@ class CrudBloc extends Bloc<CrudEvent, CrudState> {
         CommodityItem(
           createdTime: event.createdTime,
           description: event.description,
-          isImportant: event.isImportant,
+          c_price: event.c_price,
           number: event.number,
           title: event.title,
         ),

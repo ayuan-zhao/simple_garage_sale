@@ -3,11 +3,11 @@ const String itemTable = 'citems';
 class ItemFields {
   static final List<String> values = [
     /// Add all fields
-    id, isImportant, number, title, description, time
+    id, c_price, number, title, description, time
   ];
 
   static const String id = '_id';
-  static const String isImportant = 'isImportant';
+  static const String c_price = 'c_price';
   static const String number = 'number';
   static const String title = 'title';
   static const String description = 'description';
@@ -16,7 +16,7 @@ class ItemFields {
 
 class CommodityItem {
   final int? id;
-  final bool isImportant;
+  final int c_price;
   final int number;
   final String title;
   final String description;
@@ -24,7 +24,7 @@ class CommodityItem {
 
   const CommodityItem({
     this.id,
-    required this.isImportant,
+    required this.c_price,
     required this.number,
     required this.title,
     required this.description,
@@ -33,7 +33,7 @@ class CommodityItem {
 
   CommodityItem copy({
     int? id,
-    bool? isImportant,
+    int? c_price,
     int? number,
     String? title,
     String? description,
@@ -41,7 +41,7 @@ class CommodityItem {
   }) =>
       CommodityItem(
         id: id ?? this.id,
-        isImportant: isImportant ?? this.isImportant,
+        c_price: c_price ?? this.c_price,
         number: number ?? this.number,
         title: title ?? this.title,
         description: description ?? this.description,
@@ -50,7 +50,7 @@ class CommodityItem {
 
   static CommodityItem fromJson(Map<String, Object?> json) => CommodityItem(
         id: json[ItemFields.id] as int?,
-        isImportant: json[ItemFields.isImportant] == 1,
+        c_price: json[ItemFields.c_price] as int,
         number: json[ItemFields.number] as int,
         title: json[ItemFields.title] as String,
         description: json[ItemFields.description] as String,
@@ -60,7 +60,7 @@ class CommodityItem {
   Map<String, Object?> toJson() => {
         ItemFields.id: id,
         ItemFields.title: title,
-        ItemFields.isImportant: isImportant ? 1 : 0,
+        ItemFields.c_price: c_price,
         ItemFields.number: number,
         ItemFields.description: description,
         ItemFields.time: createdTime.toIso8601String(),

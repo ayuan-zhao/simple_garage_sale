@@ -16,7 +16,7 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends State<DetailsPage> {
   final TextEditingController _newTitle = TextEditingController();
   final TextEditingController _newDescription = TextEditingController();
-  bool toggleSwitch = false;
+  final TextEditingController _newPrice = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -58,15 +58,15 @@ class _DetailsPageState extends State<DetailsPage> {
                   CustomText(text: 'date made'.toUpperCase()),
                   const SizedBox(height: 10),
                   CustomText(
-                      text: DateFormat.yMMMEd().format(state.cItem.createdTime)),
+                      text:
+                          DateFormat.yMMMEd().format(state.cItem.createdTime)),
                   const SizedBox(height: 10),
-                  CustomText(text: 'important / not important'.toUpperCase()),
+                  CustomText(text: 'item price'.toUpperCase()),
                   const SizedBox(height: 10),
-                  CustomText(
-                      text: (state.cItem.isImportant == true
-                              ? 'important'
-                              : 'not important')
-                          .toUpperCase()),
+                  TextFormField(
+                    initialValue: currentItem.c_price.toString(),
+                    enabled: false,
+                  ),
                   const SizedBox(height: 10),
                   ElevatedButton(
                       onPressed: () {
@@ -111,19 +111,18 @@ class _DetailsPageState extends State<DetailsPage> {
                                             maxLines: 2,
                                           ),
                                         ),
-                                        Row(
-                                          children: [
-                                            const Text(
-                                                'Important / Not Important'),
-                                            Switch(
-                                              value: toggleSwitch,
-                                              onChanged: (newVal) {
-                                                setState(() {
-                                                  toggleSwitch = newVal;
-                                                });
-                                              },
+                                        const SizedBox(height: 10),
+                                        const Align(
+                                            alignment: Alignment.topLeft,
+                                            child: Text('Price')),
+                                        Flexible(
+                                          child: TextFormField(
+                                            controller: _newPrice,
+                                            decoration: const InputDecoration(
+                                              isDense: true,
                                             ),
-                                          ],
+                                            maxLines: 1,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -145,7 +144,8 @@ class _DetailsPageState extends State<DetailsPage> {
                                                     createdTime: DateTime.now(),
                                                     description:
                                                         _newDescription.text,
-                                                    isImportant: toggleSwitch,
+                                                    c_price: int.parse(
+                                                        _newPrice.text),
                                                     number: currentItem.number,
                                                     title: _newTitle.text,
                                                   ),
@@ -156,8 +156,8 @@ class _DetailsPageState extends State<DetailsPage> {
                                             backgroundColor:
                                                 Constants.primaryColor,
                                             duration: Duration(seconds: 1),
-                                            content:
-                                                Text('Commodity Item details updated'),
+                                            content: Text(
+                                                'Commodity Item details updated'),
                                           ));
                                           Navigator.of(context).popUntil(
                                               (route) => route.isFirst);

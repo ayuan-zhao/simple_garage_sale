@@ -6,21 +6,21 @@ abstract class CrudEvent extends Equatable {
 
 class AddItem extends CrudEvent {
   final String title;
-  final bool isImportant;
+  final int c_price;
   final int number;
   final String description;
   final DateTime createdTime;
 
   const AddItem(
       {required this.title,
-      required this.isImportant,
+      required this.c_price,
       required this.number,
       required this.description,
       required this.createdTime});
 
   @override
   List<Object?> get props =>
-      [title, isImportant, number, description, createdTime];
+      [title, c_price, number, description, createdTime];
 }
 
 class UpdateItem extends CrudEvent {

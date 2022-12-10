@@ -31,7 +31,7 @@ class DatabaseService {
     await db.execute('''
 CREATE TABLE citems ( 
   _id INTEGER PRIMARY KEY AUTOINCREMENT, 
-  isImportant BOOLEAN NOT NULL,
+  c_price INTEGER NOT NULL,
   number INTEGER NOT NULL,
   title TEXT NOT NULL,
   description NOT NULL,

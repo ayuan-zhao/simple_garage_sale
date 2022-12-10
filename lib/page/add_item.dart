@@ -14,7 +14,6 @@ class _AddItemPageState extends State<AddItemPage> {
   final TextEditingController _title = TextEditingController();
   final TextEditingController _description = TextEditingController();
   final TextEditingController _price = TextEditingController();
-  bool toggleSwitch = false;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +47,7 @@ class _AddItemPageState extends State<AddItemPage> {
                           context.read<CrudBloc>().add(
                                 AddItem(
                                   title: _title.text,
-                                  isImportant: toggleSwitch,
+                                  c_price: int.parse(_price.text),
                                   number: 0,
                                   description: _description.text,
                                   createdTime: DateTime.now(),
