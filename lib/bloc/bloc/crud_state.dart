@@ -9,18 +9,18 @@ class CrudInitial extends CrudState {
   List<Object> get props => [];
 }
 
-class DisplayTodos extends CrudState {
-  final List<Todo> todo;
+class DisplayItems extends CrudState {
+  final List<CommodityItem> cItem;
 
-  const DisplayTodos({required this.todo});
+  const DisplayItems({required this.cItem});
   @override
-  List<Object> get props => [todo];
+  List<Object> get props => [cItem];
 }
 
-class DisplaySpecificTodo extends CrudState {
-  final Todo todo;
+class DisplaySpecificItem extends CrudState {
+  final CommodityItem cItem;
 
-  const DisplaySpecificTodo({required this.todo});
+  const DisplaySpecificItem({required this.cItem});
   @override
-  List<Object> get props => [todo];
+  List<Object> get props => [cItem];
 }

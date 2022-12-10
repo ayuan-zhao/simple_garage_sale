@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sqflite_practice/bloc/bloc/crud_bloc.dart';
 import '../widgets/custom_text.dart';
 
-class AddTodoPage extends StatefulWidget {
-  const AddTodoPage({Key? key}) : super(key: key);
+class AddItemPage extends StatefulWidget {
+  const AddItemPage({Key? key}) : super(key: key);
 
   @override
-  State<AddTodoPage> createState() => _AddTodoPageState();
+  State<AddItemPage> createState() => _AddItemPageState();
 }
 
-class _AddTodoPageState extends State<AddTodoPage> {
+class _AddItemPageState extends State<AddItemPage> {
   final TextEditingController _title = TextEditingController();
   final TextEditingController _description = TextEditingController();
   bool toggleSwitch = false;
@@ -52,7 +52,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
                         if (_title.text.isNotEmpty &&
                             _description.text.isNotEmpty) {
                           context.read<CrudBloc>().add(
-                                AddTodo(
+                                AddItem(
                                   title: _title.text,
                                   isImportant: toggleSwitch,
                                   number: 0,
@@ -63,9 +63,9 @@ class _AddTodoPageState extends State<AddTodoPage> {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(
                             duration: Duration(seconds: 1),
-                            content: Text("todo added successfully"),
+                            content: Text("Commodity Item added successfully"),
                           ));
-                          context.read<CrudBloc>().add(const FetchTodos());
+                          context.read<CrudBloc>().add(const FetchItems());
                           Navigator.pop(context);
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -75,7 +75,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
                           ));
                         }
                       },
-                      child: const Text('Add Todo'));
+                      child: const Text('Add an Item'));
                 },
               ),
             ],

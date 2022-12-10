@@ -4,14 +4,14 @@ abstract class CrudEvent extends Equatable {
   const CrudEvent();
 }
 
-class AddTodo extends CrudEvent {
+class AddItem extends CrudEvent {
   final String title;
   final bool isImportant;
   final int number;
   final String description;
   final DateTime createdTime;
 
-  const AddTodo(
+  const AddItem(
       {required this.title,
       required this.isImportant,
       required this.number,
@@ -23,31 +23,31 @@ class AddTodo extends CrudEvent {
       [title, isImportant, number, description, createdTime];
 }
 
-class UpdateTodo extends CrudEvent {
-  final Todo todo;
-  const UpdateTodo({required this.todo});
+class UpdateItem extends CrudEvent {
+  final CommodityItem cItem;
+  const UpdateItem({required this.cItem});
   @override
-  List<Object?> get props => [todo];
+  List<Object?> get props => [cItem];
 }
 
-class FetchTodos extends CrudEvent {
-  const FetchTodos();
+class FetchItems extends CrudEvent {
+  const FetchItems();
 
   @override
   List<Object?> get props => [];
 }
 
-class FetchSpecificTodo extends CrudEvent {
+class FetchSpecificItem extends CrudEvent {
   final int id;
-  const FetchSpecificTodo({required this.id});
+  const FetchSpecificItem({required this.id});
 
   @override
   List<Object?> get props => [id];
 }
 
-class DeleteTodo extends CrudEvent {
+class DeleteItem extends CrudEvent {
   final int id;
-  const DeleteTodo({required this.id});
+  const DeleteItem({required this.id});
   @override
   List<Object?> get props => [id];
 }

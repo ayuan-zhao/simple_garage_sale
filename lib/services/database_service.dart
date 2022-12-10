@@ -1,7 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../models/todo.dart';
+import '../models/citem.dart';
 
 class DatabaseService {
   static final DatabaseService instance = DatabaseService._init();
@@ -11,7 +11,7 @@ class DatabaseService {
   Future<Database> get database async {
     if (_database != null) return _database!;
 
-    _database = await _initDB('todos.db');
+    _database = await _initDB('citems.db');
     return _database!;
   }
 
@@ -29,7 +29,7 @@ class DatabaseService {
     // const integerType = 'INTEGER NOT NULL';
 
     await db.execute('''
-CREATE TABLE todos ( 
+CREATE TABLE citems ( 
   _id INTEGER PRIMARY KEY AUTOINCREMENT, 
   isImportant BOOLEAN NOT NULL,
   number INTEGER NOT NULL,
@@ -40,45 +40,45 @@ CREATE TABLE todos (
 ''');
   }
 
-  Future<Todo> create(Todo todo) async {
+  Future<CommodityItem> create(CommodityItem cItem) async {
     final db = await instance.database;
-    final id = await db.insert(todoTable, todo.toJson());
-    return todo.copy(id: id);
+    final id = await db.insert(itemTable, cItem.toJson());
+    return cItem.copy(id: id);
   }
 
-  Future<Todo> readTodo({required int id}) async {
+  Future<CommodityItem> readItem({required int id}) async {
     final db = await instance.database;
 
     final maps = await db.query(
-      todoTable,
-      columns: TodoFields.values,
-      where: '${TodoFields.id} = ?',
+      itemTable,
+      columns: ItemFields.values,
+      where: '${ItemFields.id} = ?',
       whereArgs: [id],
     );
 
     if (maps.isNotEmpty) {
-      return Todo.fromJson(maps.first);
+      return CommodityItem.fromJson(maps.first);
     } else {
       throw Exception('ID $id not found');
     }
   }
 
-  Future<List<Todo>> readAllTodos() async {
+  Future<List<CommodityItem>> readAllItems() async {
     final db = await instance.database;
-    const orderBy = '${TodoFields.time} ASC';
-    final result = await db.query(todoTable, orderBy: orderBy);
+    const orderBy = '${ItemFields.time} ASC';
+    final result = await db.query(itemTable, orderBy: orderBy);
 
-    return result.map((json) => Todo.fromJson(json)).toList();
+    return result.map((json) => CommodityItem.fromJson(json)).toList();
   }
 
-  Future<int> update({required Todo todo}) async {
+  Future<int> update({required CommodityItem cItem}) async {
     final db = await instance.database;
 
     return db.update(
-      todoTable,
-      todo.toJson(),
-      where: '${TodoFields.id} = ?',
-      whereArgs: [todo.id],
+      itemTable,
+      cItem.toJson(),
+      where: '${ItemFields.id} = ?',
+      whereArgs: [cItem.id],
     );
   }
 
@@ -86,8 +86,8 @@ CREATE TABLE todos (
     final db = await instance.database;
 
     return await db.delete(
-      todoTable,
-      where: '${TodoFields.id} = ?',
+      itemTable,
+      where: '${ItemFields.id} = ?',
       whereArgs: [id],
     );
   }

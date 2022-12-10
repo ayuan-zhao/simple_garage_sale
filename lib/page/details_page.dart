@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:sqflite_practice/bloc/bloc/crud_bloc.dart';
 import '../constants/constants.dart';
-import '../models/todo.dart';
+import '../models/citem.dart';
 import '../widgets/custom_text.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -28,7 +28,7 @@ class _DetailsPageState extends State<DetailsPage> {
             Icons.arrow_back,
           ),
           onPressed: () {
-            context.read<CrudBloc>().add(const FetchTodos());
+            context.read<CrudBloc>().add(const FetchItems());
             Navigator.pop(context);
           },
         ),
@@ -38,32 +38,32 @@ class _DetailsPageState extends State<DetailsPage> {
         height: MediaQuery.of(context).size.height,
         child: BlocBuilder<CrudBloc, CrudState>(
           builder: (context, state) {
-            if (state is DisplaySpecificTodo) {
-              Todo currentTodo = state.todo;
+            if (state is DisplaySpecificItem) {
+              CommodityItem currentItem = state.cItem;
 
               return Column(
                 children: [
                   CustomText(text: 'title'.toUpperCase()),
                   const SizedBox(height: 10),
                   TextFormField(
-                      initialValue: currentTodo.title, enabled: false),
+                      initialValue: currentItem.title, enabled: false),
                   const SizedBox(height: 10),
                   CustomText(text: 'description'.toUpperCase()),
                   const SizedBox(height: 10),
                   TextFormField(
-                    initialValue: currentTodo.description,
+                    initialValue: currentItem.description,
                     enabled: false,
                   ),
                   const SizedBox(height: 10),
                   CustomText(text: 'date made'.toUpperCase()),
                   const SizedBox(height: 10),
                   CustomText(
-                      text: DateFormat.yMMMEd().format(state.todo.createdTime)),
+                      text: DateFormat.yMMMEd().format(state.cItem.createdTime)),
                   const SizedBox(height: 10),
                   CustomText(text: 'important / not important'.toUpperCase()),
                   const SizedBox(height: 10),
                   CustomText(
-                      text: (state.todo.isImportant == true
+                      text: (state.cItem.isImportant == true
                               ? 'important'
                               : 'not important')
                           .toUpperCase()),
@@ -77,7 +77,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                 builder: ((context, setState) {
                                   return AlertDialog(
                                     title: const Text(
-                                      'Update Todo',
+                                      'Update Item',
                                       style: TextStyle(
                                           fontSize: 25,
                                           letterSpacing: 2,
@@ -139,14 +139,14 @@ class _DetailsPageState extends State<DetailsPage> {
                                         style: Constants.customButtonStyle,
                                         onPressed: () async {
                                           context.read<CrudBloc>().add(
-                                                UpdateTodo(
-                                                  todo: Todo(
-                                                    id: currentTodo.id,
+                                                UpdateItem(
+                                                  cItem: CommodityItem(
+                                                    id: currentItem.id,
                                                     createdTime: DateTime.now(),
                                                     description:
                                                         _newDescription.text,
                                                     isImportant: toggleSwitch,
-                                                    number: currentTodo.number,
+                                                    number: currentItem.number,
                                                     title: _newTitle.text,
                                                   ),
                                                 ),
@@ -157,13 +157,13 @@ class _DetailsPageState extends State<DetailsPage> {
                                                 Constants.primaryColor,
                                             duration: Duration(seconds: 1),
                                             content:
-                                                Text('Todo details updated'),
+                                                Text('Commodity Item details updated'),
                                           ));
                                           Navigator.of(context).popUntil(
                                               (route) => route.isFirst);
                                           context
                                               .read<CrudBloc>()
-                                              .add(const FetchTodos());
+                                              .add(const FetchItems());
                                         },
                                         child: const Text('Update'),
                                       ),

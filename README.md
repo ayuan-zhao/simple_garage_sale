@@ -1,5 +1,5 @@
-# sqflite_todo_app_2
-_This project shows a simple todo application with implementation of BLOC + SQFLITE_.
+# sqflite_item_app_2
+_This project shows a simple item application with implementation of BLOC + SQFLITE_.
 
 _Note: This is a quick demo to show how to use BLOC (event,bloc,state) together with SQFLITE in your Flutter Projects._
 

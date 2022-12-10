@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sqflite_practice/bloc/bloc/crud_bloc.dart';
-import 'package:sqflite_practice/page/add_todo.dart';
+import 'package:sqflite_practice/page/add_item.dart';
 import 'package:sqflite_practice/splash_screen/splash_screen.dart';
 
 import 'page/details_page.dart';
@@ -53,15 +53,15 @@ class _SqFliteDemoState extends State<SqFliteDemo> {
         ),
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (c) => const AddTodoPage()));
+              context, MaterialPageRoute(builder: (c) => const AddItemPage()));
         },
       ),
       body: BlocBuilder<CrudBloc, CrudState>(
         builder: (context, state) {
           if (state is CrudInitial) {
-            context.read<CrudBloc>().add(const FetchTodos());
+            context.read<CrudBloc>().add(const FetchItems());
           }
-          if (state is DisplayTodos) {
+          if (state is DisplayItems) {
             return SafeArea(
               child: Container(
                 padding: const EdgeInsets.all(8),
@@ -70,17 +70,17 @@ class _SqFliteDemoState extends State<SqFliteDemo> {
                   const SizedBox(
                     height: 10,
                   ),
-                  state.todo.isNotEmpty
+                  state.cItem.isNotEmpty
                       ? Expanded(
                           child: ListView.builder(
                             scrollDirection: Axis.vertical,
                             padding: const EdgeInsets.all(2),
-                            itemCount: state.todo.length,
+                            itemCount: state.cItem.length,
                             itemBuilder: (context, i) {
                               return GestureDetector(
                                 onTap: () {
                                   context.read<CrudBloc>().add(
-                                      FetchSpecificTodo(id: state.todo[i].id!));
+                                      FetchSpecificItem(id: state.cItem[i].id!));
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -99,7 +99,7 @@ class _SqFliteDemoState extends State<SqFliteDemo> {
                                       children: [
                                         ListTile(
                                           title: Text(
-                                            state.todo[i].title.toUpperCase(),
+                                            state.cItem[i].title.toUpperCase(),
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold),
@@ -111,9 +111,9 @@ class _SqFliteDemoState extends State<SqFliteDemo> {
                                                   onPressed: () {
                                                     context
                                                         .read<CrudBloc>()
-                                                        .add(DeleteTodo(
+                                                        .add(DeleteItem(
                                                             id: state
-                                                                .todo[i].id!));
+                                                                .cItem[i].id!));
                                                     ScaffoldMessenger.of(
                                                             context)
                                                         .showSnackBar(
@@ -121,7 +121,7 @@ class _SqFliteDemoState extends State<SqFliteDemo> {
                                                       duration: Duration(
                                                           milliseconds: 500),
                                                       content:
-                                                          Text("deleted todo"),
+                                                          Text("deleted item"),
                                                     ));
                                                   },
                                                   icon: const Icon(

@@ -1,16 +1,16 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import '../../models/todo.dart';
+import '../../models/citem.dart';
 import '../../services/database_service.dart';
 part 'crud_event.dart';
 part 'crud_state.dart';
 
 class CrudBloc extends Bloc<CrudEvent, CrudState> {
   CrudBloc() : super(CrudInitial()) {
-    List<Todo> todos = [];
-    on<AddTodo>((event, emit) async {
+    List<CommodityItem> items = [];
+    on<AddItem>((event, emit) async {
       await DatabaseService.instance.create(
-        Todo(
+        CommodityItem(
           createdTime: event.createdTime,
           description: event.description,
           isImportant: event.isImportant,
@@ -20,25 +20,25 @@ class CrudBloc extends Bloc<CrudEvent, CrudState> {
       );
     });
 
-    on<UpdateTodo>((event, emit) async {
+    on<UpdateItem>((event, emit) async {
       await DatabaseService.instance.update(
-        todo: event.todo,
+        cItem: event.cItem,
       );
     });
 
-    on<FetchTodos>((event, emit) async {
-      todos = await DatabaseService.instance.readAllTodos();
-      emit(DisplayTodos(todo: todos));
+    on<FetchItems>((event, emit) async {
+      items = await DatabaseService.instance.readAllItems();
+      emit(DisplayItems(cItem: items));
     });
 
-    on<FetchSpecificTodo>((event, emit) async {
-      Todo todo = await DatabaseService.instance.readTodo(id: event.id);
-      emit(DisplaySpecificTodo(todo: todo));
+    on<FetchSpecificItem>((event, emit) async {
+      CommodityItem item = await DatabaseService.instance.readItem(id: event.id);
+      emit(DisplaySpecificItem(cItem: item));
     });
 
-    on<DeleteTodo>((event, emit) async {
+    on<DeleteItem>((event, emit) async {
       await DatabaseService.instance.delete(id: event.id);
-      add(const FetchTodos());
+      add(const FetchItems());
     });
   }
 }

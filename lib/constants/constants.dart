@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Constants {
-  static const String addTodo = 'Add Todo';
+  static const String addItem = 'Add Item';
   static const Color primaryColor = Colors.black87;
   static ButtonStyle customButtonStyle = ElevatedButton.styleFrom(
     shape: RoundedRectangleBorder(
