@@ -67,12 +67,6 @@ class _SqFliteDemoState extends State<SqFliteDemo> {
                 padding: const EdgeInsets.all(8),
                 height: MediaQuery.of(context).size.height,
                 child: Column(children: [
-                  Center(
-                    child: Text(
-                      'Add a Todo'.toUpperCase(),
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -80,7 +74,7 @@ class _SqFliteDemoState extends State<SqFliteDemo> {
                       ? Expanded(
                           child: ListView.builder(
                             scrollDirection: Axis.vertical,
-                            padding: const EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(2),
                             itemCount: state.todo.length,
                             itemBuilder: (context, i) {
                               return GestureDetector(
