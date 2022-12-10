@@ -80,7 +80,8 @@ class _SqFliteDemoState extends State<SqFliteDemo> {
                               return GestureDetector(
                                 onTap: () {
                                   context.read<CrudBloc>().add(
-                                      FetchSpecificItem(id: state.cItem[i].id!));
+                                      FetchSpecificItem(
+                                          id: state.cItem[i].id!));
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -98,10 +99,25 @@ class _SqFliteDemoState extends State<SqFliteDemo> {
                                     child: Column(
                                       children: [
                                         ListTile(
+                                          leading: ConstrainedBox(
+                                            constraints: const BoxConstraints(
+                                              minWidth: 44,
+                                              minHeight: 44,
+                                              maxWidth: 64,
+                                              maxHeight: 64,
+                                            ),
+                                            child: Image.asset('images/shopping_cart.png', fit: BoxFit.cover),
+                                          ),
                                           title: Text(
-                                            state.cItem[i].title.toUpperCase(),
+                                            state.cItem[i].title.toUpperCase() + "     \$" + state.cItem[i].c_price.toString() + ".00",
                                             style: const TextStyle(
                                                 color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          subtitle: Text(
+                                            state.cItem[i].description,
+                                            style: const TextStyle(
+                                                color: Colors.amberAccent,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           trailing: Row(
@@ -126,7 +142,7 @@ class _SqFliteDemoState extends State<SqFliteDemo> {
                                                   },
                                                   icon: const Icon(
                                                     Icons.delete,
-                                                    color: Colors.red,
+                                                    color: Colors.white70,
                                                   ))
                                             ],
                                           ),
