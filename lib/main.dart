@@ -44,7 +44,7 @@ class _SqFliteDemoState extends State<SqFliteDemo> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Bloc + Sqflite'),
+        title: const Text('Hyper Garage Sale'),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(
