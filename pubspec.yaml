@@ -40,6 +40,7 @@ dependencies:
   equatable: ^2.0.3
   lottie:
   image_picker: ^0.8.3
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:

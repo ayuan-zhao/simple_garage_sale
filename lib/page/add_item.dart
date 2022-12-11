@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sqflite_practice/bloc/bloc/crud_bloc.dart';
+import '../models/utility.dart';
 import '../widgets/custom_text.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
@@ -21,13 +22,16 @@ class _AddItemPageState extends State<AddItemPage> {
   final ImagePicker imagePicker = ImagePicker();
 
   XFile? imgFile;
+  String? imgString;
 
   //we can upload image from camera or from gallery based on parameter
   Future getImage(ImageSource media) async {
     var img = await imagePicker.pickImage(source: media);
+    String imgStr = Utility.base64String(await img!.readAsBytes());
 
     setState(() {
       imgFile = img;
+      imgString = imgStr;
     });
   }
 
