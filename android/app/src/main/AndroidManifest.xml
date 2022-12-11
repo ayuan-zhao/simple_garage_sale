@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sqflite_practice">
+    package="edu.neu.ayuan">
    <application
         android:label="sqflite_practice"
         android:name="${applicationName}"

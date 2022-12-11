@@ -1,4 +1,4 @@
-package com.example.sqflite_practice
+package edu.neu.ayuan
 
 import io.flutter.embedding.android.FlutterActivity
 
