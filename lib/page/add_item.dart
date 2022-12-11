@@ -20,14 +20,15 @@ class _AddItemPageState extends State<AddItemPage> {
 
   final ImagePicker imagePicker = ImagePicker();
 
-  List<XFile>? imageFileList = [];
+  XFile? imgFile;
 
-  void selectImages() async {
-    final List<XFile>? selectedImages = await imagePicker.pickMultiImage();
-    if (selectedImages!.isNotEmpty) {
-      imageFileList!.addAll(selectedImages);
-    }
-    setState(() {});
+  //we can upload image from camera or from gallery based on parameter
+  Future getImage(ImageSource media) async {
+    var img = await imagePicker.pickImage(source: media);
+
+    setState(() {
+      imgFile = img;
+    });
   }
 
   @override
@@ -59,23 +60,31 @@ class _AddItemPageState extends State<AddItemPage> {
                       style: TextStyle(
                           color: Colors.white70, fontWeight: FontWeight.bold)),
                   onPressed: () {
-                    selectImages();
+                    getImage(ImageSource.gallery);
                   }),
               SizedBox(
                 height: 20,
               ),
-              Expanded(
-                  child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GridView.builder(
-                    itemCount: imageFileList!.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3),
-                    itemBuilder: (BuildContext context, int index) {
-                      return Image.file(File(imageFileList![index].path),
-                          fit: BoxFit.cover);
-                    }),
-              )),
+              //if image not null show the image
+              //if image null show text
+              imgFile != null
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.file(
+                          //to show image, you type like this.
+                          File(imgFile!.path),
+                          fit: BoxFit.cover,
+                          width: MediaQuery.of(context).size.width,
+                          height: 300,
+                        ),
+                      ),
+                    )
+                  : Text(
+                      "No Image",
+                      style: TextStyle(fontSize: 20),
+                    ),
               BlocBuilder<CrudBloc, CrudState>(
                 builder: (context, state) {
                   return ElevatedButton(
