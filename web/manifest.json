@@ -1,6 +1,6 @@
 {
-    "name": "sqflite_practice",
-    "short_name": "sqflite_practice",
+    "name": "garage_sale",
+    "short_name": "garage_sale",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

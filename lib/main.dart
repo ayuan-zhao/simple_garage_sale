@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sqflite_practice/bloc/bloc/crud_bloc.dart';
-import 'package:sqflite_practice/page/add_item.dart';
-import 'package:sqflite_practice/splash_screen/splash_screen.dart';
+import 'package:garage_sale/bloc/bloc/crud_bloc.dart';
+import 'package:garage_sale/page/add_item.dart';
+import 'package:garage_sale/splash_screen/splash_screen.dart';
 import '../models/utility.dart';
 import 'page/details_page.dart';
 

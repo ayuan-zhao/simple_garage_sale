@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(sqflite_practice LANGUAGES CXX)
+project(garage_sale LANGUAGES CXX)
 
-set(BINARY_NAME "sqflite_practice")
+set(BINARY_NAME "garage_sale")
 
 cmake_policy(SET CMP0063 NEW)
 

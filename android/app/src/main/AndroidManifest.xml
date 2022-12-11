@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.neu.ayuan">
    <application
-        android:label="sqflite_practice"
+        android:label="garage_sale"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

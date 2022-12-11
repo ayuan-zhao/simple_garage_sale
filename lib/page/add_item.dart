@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sqflite_practice/bloc/bloc/crud_bloc.dart';
+import 'package:garage_sale/bloc/bloc/crud_bloc.dart';
 import '../models/utility.dart';
 import '../widgets/custom_text.dart';
 import 'package:image_picker/image_picker.dart';
