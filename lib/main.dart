@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sqflite_practice/bloc/bloc/crud_bloc.dart';
 import 'package:sqflite_practice/page/add_item.dart';
 import 'package:sqflite_practice/splash_screen/splash_screen.dart';
-
+import '../models/utility.dart';
 import 'page/details_page.dart';
 
 void main() {
@@ -77,6 +77,11 @@ class _SqFliteDemoState extends State<SqFliteDemo> {
                             padding: const EdgeInsets.all(2),
                             itemCount: state.cItem.length,
                             itemBuilder: (context, i) {
+                              String imgStr = state.cItem[i].c_image;
+                              Image img = imgStr.isEmpty
+                                  ? Image.asset('images/shopping_cart.png',
+                                      fit: BoxFit.cover)
+                                  : Utility.imageFromBase64String(imgStr);
                               return GestureDetector(
                                 onTap: () {
                                   context.read<CrudBloc>().add(
@@ -106,10 +111,14 @@ class _SqFliteDemoState extends State<SqFliteDemo> {
                                               maxWidth: 64,
                                               maxHeight: 64,
                                             ),
-                                            child: Image.asset('images/shopping_cart.png', fit: BoxFit.cover),
+                                            child: img,
                                           ),
                                           title: Text(
-                                            state.cItem[i].title.toUpperCase() + "     \$" + state.cItem[i].c_price.toString() + ".00",
+                                            state.cItem[i].title.toUpperCase() +
+                                                "     \$" +
+                                                state.cItem[i].c_price
+                                                    .toString() +
+                                                ".00",
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold),

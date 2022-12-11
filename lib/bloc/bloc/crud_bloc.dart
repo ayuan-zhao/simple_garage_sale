@@ -14,6 +14,7 @@ class CrudBloc extends Bloc<CrudEvent, CrudState> {
           createdTime: event.createdTime,
           description: event.description,
           c_price: event.c_price,
+          c_image: event.c_image,
           number: event.number,
           title: event.title,
         ),

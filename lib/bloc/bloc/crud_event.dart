@@ -7,6 +7,7 @@ abstract class CrudEvent extends Equatable {
 class AddItem extends CrudEvent {
   final String title;
   final int c_price;
+  final String c_image;
   final int number;
   final String description;
   final DateTime createdTime;
@@ -14,18 +15,21 @@ class AddItem extends CrudEvent {
   const AddItem(
       {required this.title,
       required this.c_price,
+      required this.c_image,
       required this.number,
       required this.description,
       required this.createdTime});
 
   @override
   List<Object?> get props =>
-      [title, c_price, number, description, createdTime];
+      [title, c_price, c_image, number, description, createdTime];
 }
 
 class UpdateItem extends CrudEvent {
   final CommodityItem cItem;
+
   const UpdateItem({required this.cItem});
+
   @override
   List<Object?> get props => [cItem];
 }
@@ -39,6 +43,7 @@ class FetchItems extends CrudEvent {
 
 class FetchSpecificItem extends CrudEvent {
   final int id;
+
   const FetchSpecificItem({required this.id});
 
   @override
@@ -47,7 +52,9 @@ class FetchSpecificItem extends CrudEvent {
 
 class DeleteItem extends CrudEvent {
   final int id;
+
   const DeleteItem({required this.id});
+
   @override
   List<Object?> get props => [id];
 }

@@ -22,7 +22,7 @@ class _AddItemPageState extends State<AddItemPage> {
   final ImagePicker imagePicker = ImagePicker();
 
   XFile? imgFile;
-  String? imgString;
+  String imgString = "";
 
   //we can upload image from camera or from gallery based on parameter
   Future getImage(ImageSource media) async {
@@ -99,6 +99,7 @@ class _AddItemPageState extends State<AddItemPage> {
                                 AddItem(
                                   title: _title.text,
                                   c_price: int.parse(_price.text),
+                                  c_image: imgString,
                                   number: 0,
                                   description: _description.text,
                                   createdTime: DateTime.now(),

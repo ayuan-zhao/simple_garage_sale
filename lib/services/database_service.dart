@@ -32,6 +32,7 @@ class DatabaseService {
 CREATE TABLE citems ( 
   _id INTEGER PRIMARY KEY AUTOINCREMENT, 
   c_price INTEGER NOT NULL,
+  c_image TEXT NOT NULL,
   number INTEGER NOT NULL,
   title TEXT NOT NULL,
   description NOT NULL,

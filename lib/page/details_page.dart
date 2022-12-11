@@ -146,6 +146,8 @@ class _DetailsPageState extends State<DetailsPage> {
                                                         _newDescription.text,
                                                     c_price: int.parse(
                                                         _newPrice.text),
+                                                    c_image:
+                                                        currentItem.c_image,
                                                     number: currentItem.number,
                                                     title: _newTitle.text,
                                                   ),
