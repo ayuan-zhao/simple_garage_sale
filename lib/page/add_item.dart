@@ -1,7 +1,10 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sqflite_practice/bloc/bloc/crud_bloc.dart';
 import '../widgets/custom_text.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter/services.dart';
 
 class AddItemPage extends StatefulWidget {
   const AddItemPage({Key? key}) : super(key: key);
@@ -14,6 +17,18 @@ class _AddItemPageState extends State<AddItemPage> {
   final TextEditingController _title = TextEditingController();
   final TextEditingController _description = TextEditingController();
   final TextEditingController _price = TextEditingController();
+
+  final ImagePicker imagePicker = ImagePicker();
+
+  List<XFile>? imageFileList = [];
+
+  void selectImages() async {
+    final List<XFile>? selectedImages = await imagePicker.pickMultiImage();
+    if (selectedImages!.isNotEmpty) {
+      imageFileList!.addAll(selectedImages);
+    }
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +53,29 @@ class _AddItemPageState extends State<AddItemPage> {
               TextFormField(controller: _description),
               CustomText(text: 'price'.toUpperCase()),
               TextFormField(controller: _price),
+              MaterialButton(
+                  color: Colors.blue,
+                  child: const Text("Pick Images from Gallery",
+                      style: TextStyle(
+                          color: Colors.white70, fontWeight: FontWeight.bold)),
+                  onPressed: () {
+                    selectImages();
+                  }),
+              SizedBox(
+                height: 20,
+              ),
+              Expanded(
+                  child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GridView.builder(
+                    itemCount: imageFileList!.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3),
+                    itemBuilder: (BuildContext context, int index) {
+                      return Image.file(File(imageFileList![index].path),
+                          fit: BoxFit.cover);
+                    }),
+              )),
               BlocBuilder<CrudBloc, CrudState>(
                 builder: (context, state) {
                   return ElevatedButton(
