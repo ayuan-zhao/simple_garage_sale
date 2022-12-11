@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:sqflite_practice/bloc/bloc/crud_bloc.dart';
 import '../constants/constants.dart';
 import '../models/citem.dart';
+import '../models/utility.dart';
 import '../widgets/custom_text.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -40,7 +41,12 @@ class _DetailsPageState extends State<DetailsPage> {
           builder: (context, state) {
             if (state is DisplaySpecificItem) {
               CommodityItem currentItem = state.cItem;
-
+              Image? img = currentItem.c_image.isEmpty
+                  ? null
+                  : Utility.imageFromBase64String(currentItem.c_image);
+              _newTitle.text = currentItem.title;
+              _newPrice.text = currentItem.c_price.toString();
+              _newDescription.text = currentItem.description;
               return Column(
                 children: [
                   CustomText(text: 'title'.toUpperCase()),
@@ -67,6 +73,18 @@ class _DetailsPageState extends State<DetailsPage> {
                     initialValue: currentItem.c_price.toString(),
                     enabled: false,
                   ),
+                  const SizedBox(height: 10),
+                  img != null
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: img,
+                          ),
+                        )
+                      : CustomText(
+                          text: "No Image",
+                        ),
                   const SizedBox(height: 10),
                   ElevatedButton(
                       onPressed: () {
@@ -142,14 +160,23 @@ class _DetailsPageState extends State<DetailsPage> {
                                                   cItem: CommodityItem(
                                                     id: currentItem.id,
                                                     createdTime: DateTime.now(),
-                                                    description:
-                                                        _newDescription.text,
-                                                    c_price: int.parse(
-                                                        _newPrice.text),
+                                                    description: _newDescription
+                                                            .text.isEmpty
+                                                        ? currentItem
+                                                            .description
+                                                        : _newDescription.text,
+                                                    c_price: _newPrice
+                                                            .text.isEmpty
+                                                        ? currentItem.c_price
+                                                        : int.parse(
+                                                            _newPrice.text),
                                                     c_image:
                                                         currentItem.c_image,
                                                     number: currentItem.number,
-                                                    title: _newTitle.text,
+                                                    title:
+                                                        _newTitle.text.isEmpty
+                                                            ? currentItem.title
+                                                            : _newTitle.text,
                                                   ),
                                                 ),
                                               );
